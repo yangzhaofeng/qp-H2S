@@ -1,5 +1,6 @@
 # qp-H2S
-Project for Pr.Hu Shuiming's Quantum Physics course 
+Project for Pr.Hu Shuiming's Quantum Physics course
+
 You will need armadillo library to run the program
 
 configuration:
