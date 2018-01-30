@@ -56,5 +56,10 @@ int main(){
 	mat Ex(8,8);
 	Ex = E0 + E1;
 	cout<<Ex / 1.6021766208E-19 * 8065.5409<<endl;
+	mat Ey(8,8,fill::zeros);
+	for(int _m=0;_m<=7;_m++){
+		Ey(_m,_m)=Ex(0,0);
+	}
+	cout<<(Ex - Ey) / 1.6021766208E-19 * 8065.5409<<endl;
 	return 0;
 }
