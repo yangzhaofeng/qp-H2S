@@ -1,14 +1,10 @@
 # qp-H2S
 Project for Pr.Hu Shuiming's Quantum Physics course
 
-You will need armadillo library to run the program
+You will need a c++ compiler and armadillo library to run the program
 
-For Debian/Ubuntu users, run:
+For Debian/Ubuntu users, it is recommended to install <code>g++</code> and <code>libarmadillo-dev</code> from repository
 
-\#<code>apt-get install libarmadillo-dev</code>
-
-to get the library.
-
-configuration:
+Compile with g++:
 
 <code>g++ -o \<DEST> main.cpp -O2 -larmadillo</code>

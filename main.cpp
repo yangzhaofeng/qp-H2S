@@ -22,7 +22,9 @@ int main(){
 	//cout <<omega<<endl<<omegax<<endl<<grr<<endl<<frr<<endl;
 	mat E0(8,8,fill::zeros);
 	for(int _m=0;_m<=7;_m++){
-		E0(_m,_m)=E(_m);
+		for(int _k=0;_k<=7;_k++){
+			E0(_m,_k)=E(_m)+E(_k);
+		}
 	}
 	//cout<<E0<<endl;
 
@@ -38,28 +40,42 @@ int main(){
 			x2(_m,_k) = sqrt(_k+1) * delta(_m,_k+1) + sqrt(_k) * delta(_m,_k-1);
 		}
 	}
+
+	mat p12(8,8),x12(8,8);
+	for (int _m=0;_m<=7;_m++){
+		for (int _k=0;_k<=_m;_k++){
+			p12(_m,_k) = p1(_m,_k) * p2(_m,_k);
+			x12(_m,_k) = x1(_m,_k) * x2(_m,_k);
+		}
+		for (int _k=_m+1;_k<=7;_k++){
+			p12(_m,_k) = - p1(_m,_k) * p2(_m,_k);
+			x12(_m,_k) = - x1(_m,_k) * x2(_m,_k);
+		}
+	}
+
 	//cout <<p1<<"\n"<<p2<<"\n"<<x1<<"\n"<<x2<<endl;
 	mat H1(8,8,fill::zeros);
-	H1 = grr * -0.5 * amutokg(m) * omega * h_bar * p1 * p2 + cmtoj(frr) * 0.5 * h_bar / (amutokg(m) * omega) * x1 * x2;
+	H1 = grr * -0.5 * amutokg(m) * omega * h_bar * p12 + cmtoj(frr) * 0.5 * h_bar / (amutokg(m) * omega) * x12;
 	//cout<<H1<<endl;
 
 	//mat H = E0 + H1;
 	//cout<<diagmat(eig_sym(H))<<endl;
-	mat etemp = diagmat(eig_sym(H1));
-	mat E1(8,8,fill::zeros);
+	//mat etemp = diagmat(eig_sym(H1));
+	//mat E1(8,8,fill::zeros);
 	
-	for(int _k=0;_k<=7;_k++){ //reverse the diag
-		E1(_k,_k)=etemp(7-_k,7-_k);
-	}
+	//for(int _k=0;_k<=7;_k++){ //reverse the diag
+	//	E1(_k,_k)=etemp(7-_k,7-_k);
+	//}
 	//cout<<E1<<endl;
 
-	mat Ex(8,8);
-	Ex = E0 + E1;
-	cout<<Ex / 1.6021766208E-19 * 8065.5409<<endl;
-	mat Ey(8,8,fill::zeros);
-	for(int _m=0;_m<=7;_m++){
+	mat H(8,8);
+	H = E0 + H1;
+	cout<<H / 1.6021766208E-19 * 8065.5409<<endl;
+	mat Ey(8,8);
+	Ey.fill(H(0,0));
+	/*for(int _m=0;_m<=7;_m++){
 		Ey(_m,_m)=Ex(0,0);
-	}
-	cout<<(Ex - Ey) / 1.6021766208E-19 * 8065.5409<<endl;
+	}*/
+	cout<<(H - Ey) / 1.6021766208E-19 * 8065.5409<<endl;
 	return 0;
 }
