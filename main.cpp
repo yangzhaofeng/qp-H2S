@@ -19,7 +19,7 @@ const double h_bar = 1.054571800E-34; //J s
 
 
 int main(){
-	cout <<omega<<endl<<omegax<<endl<<grr<<endl<<frr<<endl;
+	//cout <<omega<<endl<<omegax<<endl<<grr<<endl<<frr<<endl;
 	mat E0(8,8,fill::zeros);
 	for(int _m=0;_m<=7;_m++){
 		E0(_m,_m)=E(_m);
