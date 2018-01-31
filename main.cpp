@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <cstdlib>
 #include <armadillo>
 #include "qpcall.h"
@@ -19,6 +20,8 @@ const double h_bar = 1.054571800E-34; //J s
 
 
 int main(){
+	cout.precision(8);
+	//cout.setf(ios::fixed);
 	//cout <<omega<<endl<<omegax<<endl<<grr<<endl<<frr<<endl;
 	mat E0(8,8,fill::zeros);
 	for(int _m=0;_m<=7;_m++){
@@ -70,12 +73,20 @@ int main(){
 
 	mat H(8,8);
 	H = E0 + H1;
+	//mat H_cm(8,8);
+	//H_cm = H / 1.6021766208E-19 * 8065.5409;
+	//H_cm.raw_print(cout);
+	//cout<<endl;
 	cout<<H / 1.6021766208E-19 * 8065.5409<<endl;
 	mat Ey(8,8);
 	Ey.fill(H(0,0));
 	/*for(int _m=0;_m<=7;_m++){
 		Ey(_m,_m)=Ex(0,0);
 	}*/
+	//mat E_cm;
+	//E_cm = H_cm - Ey;
+	//E_cm.raw_print(cout);
+	//cout<<endl;
 	cout<<(H - Ey) / 1.6021766208E-19 * 8065.5409<<endl;
 	return 0;
 }
